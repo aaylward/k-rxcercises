@@ -8,7 +8,7 @@
  *  in the string `s` where any character from `t` occurs, or `-1` if s contains
  *  no characters from t.
  *
- *  This function assumes that both s and t are ascii strings.
+ *  This only works with ascii strings.
  *  @bugs aaylward@gmail.com <Andy Aylward>
  */
 int any(char s[], char t[]) {
@@ -27,7 +27,6 @@ int any(char s[], char t[]) {
         if (ascii[(int) s[j]] == 1) {
             return j;
         }
-
     }
 
     return NOT_FOUND;
