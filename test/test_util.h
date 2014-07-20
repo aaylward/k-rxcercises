@@ -6,11 +6,11 @@
 #define ERROR -1
 #define SUCCESS 0
 
-/* TEST should be an int */
-#define ASSERT( MESSAGE , TEST , EXPECTED ) ({ \
-    int actual = TEST; \
-    if (actual != EXPECTED) { \
-        printf("%s Expected: %d, Got: %d\n", MESSAGE, EXPECTED, actual); \
+/* TEST functions that return `int` */
+#define ASSERT_INT( MESSAGE , TEST , EXPECTED ) ({ \
+    int _actual = TEST; \
+    if (_actual != EXPECTED) { \
+        printf("%s Expected: %d, Got: %d\n", MESSAGE, EXPECTED, _actual); \
         return ERROR; \
     } \
 })
