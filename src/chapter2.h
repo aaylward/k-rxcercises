@@ -1,7 +1,6 @@
 #ifndef CHAPTER_2_EXCERCISES
 #define CHAPTER_2_EXCERCISES
 
-#define MAX_ASCII 255
 #define NOT_FOUND -1
 
 /*

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <limits.h>
 #include "chapter2.h"
 
 /*
@@ -11,21 +12,20 @@
  *  @bugs aaylward@gmail.com <Andy Aylward>
  */
 int any(char s[], char t[]) {
-    char ascii[MAX_ASCII];
+    char ascii[UCHAR_MAX];
     size_t i, j;
-
-    i = j = 0;
 
     initializeAsciiArray(ascii);
 
     /* map of characters in t */
-    for (; j<strlen(t); j++) {
-        ascii[(int) t[j]] = 1;
+    for (i=0; i<strlen(t); i++) {
+        ascii[(int) t[i]] = 1;
     }
 
-    for (; i<strlen(s); i++) {
-        if (ascii[(int) s[i]] == 1) {
-            return i;
+    /* find first occurence of a character in t */
+    for (j=0; j<strlen(s); j++) {
+        if (ascii[(int) s[j]] == 1) {
+            return j;
         }
 
     }
