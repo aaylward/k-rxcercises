@@ -5,8 +5,7 @@
 
 /*
  *  HashMap on the cheap ;)
- *  hash function f:Z/Z_(ascii_range)->Z/Z_(ascii_range)
- *  f(x) = x
+ *  hash(x) = x
  */
 void initializeAsciiArray(char ascii[]);
 
