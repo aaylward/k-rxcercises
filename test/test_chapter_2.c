@@ -12,15 +12,11 @@ int test_2_5() {
     if ((index = any(test_string, other)) != INDEX_OF_R) {
         printf("any failed on `any(%s, %s)==%d` -- %d\n", test_string, other, INDEX_OF_R, index);
         return NOT_FOUND;
-    } else {
-        printf("`any(%s, %s)==%d`\n", test_string, other, INDEX_OF_R);
     }
 
     if ((index = any(test_string, none_in_common)) != NOT_FOUND) {
         printf("any failed on `any(%s, %s)==%d` -- actual:%d\n", test_string, none_in_common, NOT_FOUND, index);
         return NOT_FOUND;
-    } else {
-        printf("`any(%s, %s)==%d`\n", test_string, none_in_common, NOT_FOUND);
     }
 
     return 0;
