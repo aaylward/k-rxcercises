@@ -20,9 +20,9 @@ unsigned getbits(unsigned x, int p, int n) {
  *  others unchanged.
  */
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
-    unsigned left, right;
-    left = x << (p+1-n);
-    right = y >> n;
+    unsigned stuff_to_keep, stuff_to_write;
+    stuff_to_keep = x >> (p+1-n);
+    stuff_to_write = y >> n;
     return x;
 }
 
