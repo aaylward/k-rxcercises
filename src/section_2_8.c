@@ -17,15 +17,18 @@
  */
 int any(char s[], char t[]) {
     char ascii_map[UCHAR_MAX] = { 0 };
-    size_t i, j;
+    size_t i, j, len_s, len_t;
+
+    len_s = strlen(s);
+    len_t = strlen(t);
 
     /* map of characters in t */
-    for (i=0; i<strlen(t); i++) {
+    for (i=0; i<len_t; i++) {
         ascii_map[(int) t[i]] = 1;
     }
 
     /* find first occurence of a character in t */
-    for (j=0; j<strlen(s); j++) {
+    for (j=0; j<len_s; j++) {
         if (ascii_map[(int) s[j]]) {
             return j;
         }
