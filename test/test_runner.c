@@ -10,9 +10,9 @@ static const int INDEX_OF_R = 5;
 static const int INDEX_OF_S= 9;
 
 int test_2_5() {
-    ASSERT_INT( "`any` failed to find first instance of 'r'", any(test_string, other), INDEX_OF_R);
-    ASSERT_INT( "`any` should return -1 if there are no characters in common", any(test_string, none_in_common), NOT_FOUND);
-    ASSERT_INT( "`any` failed to find first instance of 's'", any(test_string, last_matches), INDEX_OF_S);
+    ASSERT_INT( "`any` failed to find first instance of 'r'", INDEX_OF_R, any(test_string, other));
+    ASSERT_INT( "`any` should return -1 if there are no characters in common", NOT_FOUND, any(test_string, none_in_common));
+    ASSERT_INT( "`any` failed to find first instance of 's'", INDEX_OF_S, any(test_string, last_matches));
     return 0;
 }
 
