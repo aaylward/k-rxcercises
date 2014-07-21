@@ -16,19 +16,20 @@
  *  This only works with ascii strings.
  */
 int any(char s[], char t[]) {
-    char ascii[UCHAR_MAX];
-    size_t i, j;
+    char ascii_map[UCHAR_MAX] = { 0 };
+    size_t i, j, len_s, len_t;
 
-    initializeAsciiArray(ascii);
+    len_s = strlen(s);
+    len_t = strlen(t);
 
     /* map of characters in t */
-    for (i=0; i<strlen(t); i++) {
-        ascii[(int) t[i]] = 1;
+    for (i=0; i<len_t; i++) {
+        ascii_map[(int) t[i]] = 1;
     }
 
     /* find first occurence of a character in t */
-    for (j=0; j<strlen(s); j++) {
-        if (ascii[(int) s[j]]) {
+    for (j=0; j<len_s; j++) {
+        if (ascii_map[(int) s[j]]) {
             return j;
         }
     }

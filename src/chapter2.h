@@ -6,12 +6,6 @@
 
 #define NOT_FOUND -1
 
-/*
- *  HashMap on the cheap ;)
- *  hash(x) = x
- */
-void initializeAsciiArray(char ascii[]);
-
 /* Excercise 2.5 */
 int any(char s[], char t[]);
 
