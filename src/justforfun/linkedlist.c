@@ -63,6 +63,10 @@ void _traverse(LinkNode *list) {
     }
 }
 
+void remove_at(int index) {
+    /* unimplemented */
+}
+
 /* prints the value of each node in order */
 void traverse(LinkedList *list) {
     if (list->length) {
@@ -70,15 +74,20 @@ void traverse(LinkedList *list) {
     }
 }
 
-/* returns a new reversed linked list */
-LinkedList *reversed(LinkedList *list) {
-    LinkedList *reversed = newList();
-    LinkNode *next = list->head;
-    while (next != NULL) {
-        prepend(reversed, next->_value);
-        next = next->_next;
+int length(LinkedList *list) {
+    return list->length;
+}
+
+void destroy(LinkedList *list) {
+    LinkNode *root = list->head;
+    LinkNode *tmp;
+    while (root != NULL) {
+        tmp = root->_next;
+        free(root);
+        root = tmp;
     }
-    return reversed;
+
+    free(list);
 }
 
 /* reverses a linked list in place (ish) */
@@ -99,16 +108,15 @@ void reverse(LinkedList *list) {
     list->head = new_head;
 }
 
-void destroy(LinkedList *list) {
-    LinkNode *root = list->head;
-    LinkNode *tmp;
-    while (root != NULL) {
-        tmp = root->_next;
-        free(root);
-        root = tmp;
+/* returns a new reversed linked list */
+LinkedList *reversed(LinkedList *list) {
+    LinkedList *reversed = newList();
+    LinkNode *next = list->head;
+    while (next != NULL) {
+        prepend(reversed, next->_value);
+        next = next->_next;
     }
-
-    free(list);
+    return reversed;
 }
 
 int main() {
