@@ -2,35 +2,35 @@
 #include <stdio.h>
 #include "linkedlist.h"
 
-typedef struct LinkNode LinkNode;
+typedef struct SingleLinkNode SingleLinkNode;
 
-struct LinkNode {
+struct SingleLinkNode {
     int _value;
-    LinkNode *_next;
+    SingleLinkNode *_next;
 };
 
-struct LinkedList {
+struct SinglyLinkedList {
     int length;
-    LinkNode *head;
+    SingleLinkNode *head;
 };
 
-LinkNode *newLink(int value) {
-    LinkNode *p = malloc(sizeof(LinkNode));
+SingleLinkNode *newSingleLink(int value) {
+    SingleLinkNode *p = malloc(sizeof(SingleLinkNode));
     p->_value = value;
     p->_next = NULL;
     return p;
 }
 
-LinkedList *newList() {
-    LinkedList *list = malloc(sizeof(LinkedList));
+SinglyLinkedList *newSinglyLinkedList() {
+    SinglyLinkedList *list = malloc(sizeof(SinglyLinkedList));
     list->length = 0;
     list->head = NULL;
     return list;
 }
 
-void add(LinkedList *list, int value) {
-    LinkNode *node = newLink(value);
-    LinkNode *root = list->head;
+void add(SinglyLinkedList *list, int value) {
+    SingleLinkNode *node = newSingleLink(value);
+    SingleLinkNode *root = list->head;
 
     if (list->head == NULL) {
         list->head = node;
@@ -46,41 +46,73 @@ void add(LinkedList *list, int value) {
     list->length++;
 }
 
-LinkNode *_prepend(LinkNode *old_root, LinkNode * new_root) {
+SingleLinkNode *_prepend(SingleLinkNode *old_root, SingleLinkNode * new_root) {
     new_root->_next = old_root;
     return new_root;
 }
 
-void prepend(LinkedList *list, int value) {
-    list->head = _prepend(list->head, newLink(value));
+void prepend(SinglyLinkedList *list, int value) {
+    list->head = _prepend(list->head, newSingleLink(value));
     list->length++;
 }
 
-void _traverse(LinkNode *list) {
+void _traverse(SingleLinkNode *list) {
     printf("value: %d\n", list->_value);
     if (list->_next) {
         _traverse(list->_next);
     }
 }
 
-void remove_at(int index) {
-    /* unimplemented */
+void remove_at(SinglyLinkedList *list, int index) {
+    if (index < 0 || index >= list->length) {
+        return;
+    }
+
+    if (index == 0) {
+        SingleLinkNode *to_remove = list->head;
+        list->head = to_remove->_next;
+        list->length--;
+        free(to_remove);
+        return;
+    }
+
+    SingleLinkNode *prev = list->head;
+    int current_index = 0;
+
+    while (current_index < index-1) {
+        prev = prev->_next;
+        current_index++;
+    }
+
+
+    SingleLinkNode *to_remove = prev->_next;
+
+    SingleLinkNode *new_next = NULL;
+
+    if (to_remove != NULL) {
+        new_next = to_remove->_next;
+    }
+
+    prev->_next = new_next;
+    free(to_remove);
+    list->length--;
 }
 
 /* prints the value of each node in order */
-void traverse(LinkedList *list) {
+void traverse(SinglyLinkedList *list) {
     if (list->length) {
         _traverse(list->head);
     }
 }
 
-int length(LinkedList *list) {
+int length(SinglyLinkedList *list) {
     return list->length;
 }
 
-void destroy(LinkedList *list) {
-    LinkNode *root = list->head;
-    LinkNode *tmp;
+void destroy(SinglyLinkedList *list) {
+    SingleLinkNode *root = list->head;
+    SingleLinkNode *tmp;
+
     while (root != NULL) {
         tmp = root->_next;
         free(root);
@@ -90,15 +122,16 @@ void destroy(LinkedList *list) {
     free(list);
 }
 
-/* reverses a linked list in place (ish) */
-void reverse(LinkedList *list) {
+/* reverses a linked list in place */
+void reverse(SinglyLinkedList *list) {
     if (list->head == NULL) {
         return;
     }
 
-    LinkNode *new_head = NULL;
-    LinkNode *next = list->head;
-    LinkNode *tmp;
+    SingleLinkNode *new_head = NULL;
+    SingleLinkNode *next = list->head;
+    SingleLinkNode *tmp;
+
     while (next != NULL) {
         tmp = next->_next;
         new_head = _prepend(new_head, next);
@@ -109,9 +142,9 @@ void reverse(LinkedList *list) {
 }
 
 /* returns a new reversed linked list */
-LinkedList *reversed(LinkedList *list) {
-    LinkedList *reversed = newList();
-    LinkNode *next = list->head;
+SinglyLinkedList *reversed(SinglyLinkedList *list) {
+    SinglyLinkedList *reversed = newSinglyLinkedList();
+    SingleLinkNode *next = list->head;
     while (next != NULL) {
         prepend(reversed, next->_value);
         next = next->_next;
@@ -120,7 +153,7 @@ LinkedList *reversed(LinkedList *list) {
 }
 
 int main() {
-    LinkedList *list = newList();
+    SinglyLinkedList *list = newSinglyLinkedList();
     add(list, 1);
     add(list, 2);
     add(list, 3);
@@ -136,5 +169,24 @@ int main() {
     traverse(list);
 
     destroy(list);
+
+    SinglyLinkedList *other_list = newSinglyLinkedList();
+    add(other_list, 1);
+    add(other_list, 2);
+    add(other_list, 3);
+    add(other_list, 4);
+    add(other_list, 5);
+
+    puts("ok\n\n\n");
+    printf("size: %d\n\n\n", other_list->length);
+
+    traverse(other_list);
+
+    remove_at(other_list, 0);
+
+    puts("ok\n\n\n");
+
+    traverse(other_list);
+    printf("size: %d\n\n\n", other_list->length);
     return 0;
 }

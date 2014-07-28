@@ -1,20 +1,20 @@
-typedef struct LinkedList LinkedList;
+typedef struct SinglyLinkedList SinglyLinkedList;
 
-LinkedList *newList(void);
+SinglyLinkedList *newSinglyLinkedList(void);
 
-void add(LinkedList *list, int value);
+void add(SinglyLinkedList *list, int value);
 
-void prepend(LinkedList *list, int value);
+void prepend(SinglyLinkedList *list, int value);
 
-void remove_at(int index);
+void remove_at(SinglyLinkedList *list, int index);
 
-void traverse(LinkedList *list);
+void traverse(SinglyLinkedList *list);
 
-int length(LinkedList *list);
+int length(SinglyLinkedList *list);
 
-void destroy(LinkedList *list);
+void destroy(SinglyLinkedList *list);
 
-void reverse(LinkedList *list); /* reverse a linked list in place (ish) */
+void reverse(SinglyLinkedList *list); /* reverse a linked list in place (ish) */
 
-LinkedList *reversed(LinkedList *list); /* return a new reversed linked list */
+SinglyLinkedList *reversed(SinglyLinkedList *list); /* return a new reversed linked list */
 
