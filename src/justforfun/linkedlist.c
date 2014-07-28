@@ -81,18 +81,6 @@ LinkedList *reversed(LinkedList *list) {
     return reversed;
 }
 
-void destroy(LinkedList *list) {
-    LinkNode *root = list->head;
-    LinkNode *tmp;
-    while (root != NULL) {
-        tmp = root->_next;
-        free(root);
-        root = tmp;
-    }
-
-    free(list);
-}
-
 /* reverses a linked list in place (ish) */
 void reverse(LinkedList *list) {
     if (list->head == NULL) {
@@ -109,6 +97,18 @@ void reverse(LinkedList *list) {
     }
 
     list->head = new_head;
+}
+
+void destroy(LinkedList *list) {
+    LinkNode *root = list->head;
+    LinkNode *tmp;
+    while (root != NULL) {
+        tmp = root->_next;
+        free(root);
+        root = tmp;
+    }
+
+    free(list);
 }
 
 int main() {
