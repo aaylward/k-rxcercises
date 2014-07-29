@@ -16,20 +16,27 @@ struct SinglyLinkedList {
 
 SingleLinkNode *newSingleLink(int value) {
     SingleLinkNode *p = malloc(sizeof(SingleLinkNode));
-    p->_value = value;
-    p->_next = NULL;
+    if (p != NULL) {
+        p->_value = value;
+        p->_next = NULL;
+    }
     return p;
 }
 
 SinglyLinkedList *newSinglyLinkedList() {
     SinglyLinkedList *list = malloc(sizeof(SinglyLinkedList));
-    list->length = 0;
-    list->head = NULL;
+    if (list != NULL) {
+        list->length = 0;
+        list->head = NULL;
+    }
     return list;
 }
 
 void add(SinglyLinkedList *list, int value) {
     SingleLinkNode *node = newSingleLink(value);
+
+    if (node == NULL) { return; } /* OOM? */
+
     SingleLinkNode *cur = list->head;
     SingleLinkNode *prev = NULL;
 
@@ -53,7 +60,11 @@ SingleLinkNode *_prepend(SingleLinkNode *old_root, SingleLinkNode *new_root) {
 }
 
 void prepend(SinglyLinkedList *list, int value) {
-    list->head = _prepend(list->head, newSingleLink(value));
+    SingleLinkNode *node = newSingleLink(value);
+
+    if (node == NULL) { return; } /* OOM? */
+
+    list->head = _prepend(list->head, node);
     list->length++;
 }
 
@@ -134,11 +145,15 @@ void reverse(SinglyLinkedList *list) {
 /* returns a new reversed linked list */
 SinglyLinkedList *reversed(SinglyLinkedList *list) {
     SinglyLinkedList *reversed = newSinglyLinkedList();
-    SingleLinkNode *next = list->head;
-    while (next != NULL) {
-        prepend(reversed, next->_value);
-        next = next->_next;
+
+    if (reversed != NULL) {
+        SingleLinkNode *next = list->head;
+        while (next != NULL) {
+            prepend(reversed, next->_value);
+            next = next->_next;
+        }
     }
+
     return reversed;
 }
 
@@ -165,5 +180,14 @@ int main() {
 
     SinglyLinkedList *null_list = NULL;
     destroy(null_list);
+
+    SinglyLinkedList *singleton = newSinglyLinkedList();
+    add(singleton, 100);
+
+    printf("size: %d\n\n\n", singleton->length);
+    puts("ok");
+    remove_at(singleton, 0);
+    traverse(singleton);
+    printf("size: %d\n\n\n", singleton->length);
     return 0;
 }
