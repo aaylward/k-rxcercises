@@ -100,7 +100,7 @@ int length(SinglyLinkedList *list) {
 void destroy(SinglyLinkedList *list) {
     if (list != NULL) {
         SingleLinkNode *root = list->head;
-        SingleLinkNode *tmp;
+        SingleLinkNode *tmp = NULL;
 
         while (root != NULL) {
             tmp = root->_next;
@@ -120,7 +120,7 @@ void reverse(SinglyLinkedList *list) {
 
     SingleLinkNode *new_head = NULL;
     SingleLinkNode *next = list->head;
-    SingleLinkNode *tmp;
+    SingleLinkNode *tmp = NULL;
 
     while (next != NULL) {
         tmp = next->_next;
