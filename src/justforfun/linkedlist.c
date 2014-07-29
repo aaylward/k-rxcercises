@@ -30,19 +30,20 @@ SinglyLinkedList *newSinglyLinkedList() {
 
 void add(SinglyLinkedList *list, int value) {
     SingleLinkNode *node = newSingleLink(value);
-    SingleLinkNode *root = list->head;
+    SingleLinkNode *cur = list->head;
+    SingleLinkNode *prev = NULL;
 
-    if (list->head == NULL) {
+    while (cur != NULL) {
+        prev = cur;
+        cur = cur->_next;
+    }
+
+    if (prev == NULL) {
         list->head = node;
-        list->length++;
-        return;
+    } else {
+        prev->_next = node;
     }
 
-    while (root->_next != NULL) {
-        root = root->_next;
-    }
-
-    root->_next = node;
     list->length++;
 }
 
