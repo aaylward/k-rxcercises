@@ -76,9 +76,12 @@ void remove_at(SinglyLinkedList *list, int index) {
     }
 
     /* still at the beginning? */
-    if (prev == NULL) { prev = list->head; }
+    if (prev == NULL) {
+        list->head = cur->_next;
+    } else {
+        prev->_next = cur->_next;
+    }
 
-    prev->_next = cur->_next;
     free(cur);
     list->length--;
 }
@@ -151,9 +154,9 @@ int main() {
     puts("reversed");
     traverse(list);
 
-    puts("removing index 4");
+    puts("removing index 0");
 
-    remove_at(list, 4);
+    remove_at(list, 0);
     traverse(list);
     printf("size: %d\n\n\n", list->length);
     destroy(list);
