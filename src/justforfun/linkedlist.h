@@ -14,7 +14,7 @@ int length(SinglyLinkedList *list);
 
 void destroy(SinglyLinkedList *list);
 
-void reverse(SinglyLinkedList *list); /* reverse a linked list in place (ish) */
+void reverse(SinglyLinkedList *list); /* reverse a linked list in place */
 
 SinglyLinkedList *reversed(SinglyLinkedList *list); /* return a new reversed linked list */
 
