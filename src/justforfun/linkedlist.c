@@ -47,7 +47,7 @@ void add(SinglyLinkedList *list, int value) {
     list->length++;
 }
 
-SingleLinkNode *_prepend(SingleLinkNode *old_root, SingleLinkNode * new_root) {
+SingleLinkNode *_prepend(SingleLinkNode *old_root, SingleLinkNode *new_root) {
     new_root->_next = old_root;
     return new_root;
 }
@@ -55,13 +55,6 @@ SingleLinkNode *_prepend(SingleLinkNode *old_root, SingleLinkNode * new_root) {
 void prepend(SinglyLinkedList *list, int value) {
     list->head = _prepend(list->head, newSingleLink(value));
     list->length++;
-}
-
-void _traverse(SingleLinkNode *list) {
-    printf("value: %d\n", list->_value);
-    if (list->_next) {
-        _traverse(list->_next);
-    }
 }
 
 void remove_at(SinglyLinkedList *list, int index) {
@@ -86,9 +79,16 @@ void remove_at(SinglyLinkedList *list, int index) {
     list->length--;
 }
 
+void _traverse(SingleLinkNode *node) {
+    if (node == NULL) { return; }
+
+    printf("value: %d\n", node->_value);
+    _traverse(node->_next);
+}
+
 /* prints the value of each node in order */
 void traverse(SinglyLinkedList *list) {
-    if (list->length) {
+    if (list != NULL) {
         _traverse(list->head);
     }
 }
@@ -98,13 +98,15 @@ int length(SinglyLinkedList *list) {
 }
 
 void destroy(SinglyLinkedList *list) {
-    SingleLinkNode *root = list->head;
-    SingleLinkNode *tmp;
+    if (list != NULL) {
+        SingleLinkNode *root = list->head;
+        SingleLinkNode *tmp;
 
-    while (root != NULL) {
-        tmp = root->_next;
-        free(root);
-        root = tmp;
+        while (root != NULL) {
+            tmp = root->_next;
+            free(root);
+            root = tmp;
+        }
     }
 
     free(list);
@@ -160,5 +162,8 @@ int main() {
     traverse(list);
     printf("size: %d\n\n\n", list->length);
     destroy(list);
+
+    SinglyLinkedList *null_list = NULL;
+    destroy(null_list);
     return 0;
 }
