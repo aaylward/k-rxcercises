@@ -64,37 +64,21 @@ void _traverse(SingleLinkNode *list) {
 }
 
 void remove_at(SinglyLinkedList *list, int index) {
-    if (index < 0 || index >= list->length) {
-        return;
+    if (index < 0 || index >= list->length) { return; }
+
+    SingleLinkNode *prev = NULL;
+    SingleLinkNode *cur = list->head;
+
+    for (int i=0; i<index; i++) {
+        prev = cur;
+        cur = cur->_next;
     }
 
-    if (index == 0) {
-        SingleLinkNode *to_remove = list->head;
-        list->head = to_remove->_next;
-        list->length--;
-        free(to_remove);
-        return;
-    }
+    /* still at the beginning? */
+    if (prev == NULL) { prev = list->head; }
 
-    SingleLinkNode *prev = list->head;
-    int current_index = 0;
-
-    while (current_index < index-1) {
-        prev = prev->_next;
-        current_index++;
-    }
-
-
-    SingleLinkNode *to_remove = prev->_next;
-
-    SingleLinkNode *new_next = NULL;
-
-    if (to_remove != NULL) {
-        new_next = to_remove->_next;
-    }
-
-    prev->_next = new_next;
-    free(to_remove);
+    prev->_next = cur->_next;
+    free(cur);
     list->length--;
 }
 
@@ -154,39 +138,23 @@ SinglyLinkedList *reversed(SinglyLinkedList *list) {
 
 int main() {
     SinglyLinkedList *list = newSinglyLinkedList();
-    add(list, 1);
-    add(list, 2);
-    add(list, 3);
-    add(list, 4);
-    add(list, 5);
+    int items[] = {1, 2, 3, 4, 5, 0};
+    int index = 0;
+    while (items[index] != 0) {
+        add(list, items[index++]);
+    }
 
     puts("forwards");
     traverse(list);
-
     reverse(list);
-
-    puts("backwards");
+    puts("reversed");
     traverse(list);
 
+    puts("removing index 4");
+
+    remove_at(list, 4);
+    traverse(list);
+    printf("size: %d\n\n\n", list->length);
     destroy(list);
-
-    SinglyLinkedList *other_list = newSinglyLinkedList();
-    add(other_list, 1);
-    add(other_list, 2);
-    add(other_list, 3);
-    add(other_list, 4);
-    add(other_list, 5);
-
-    puts("ok\n\n\n");
-    printf("size: %d\n\n\n", other_list->length);
-
-    traverse(other_list);
-
-    remove_at(other_list, 0);
-
-    puts("ok\n\n\n");
-
-    traverse(other_list);
-    printf("size: %d\n\n\n", other_list->length);
     return 0;
 }
