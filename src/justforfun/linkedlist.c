@@ -130,13 +130,13 @@ void reverse(SinglyLinkedList *list) {
     }
 
     SingleLinkNode *new_head = NULL;
-    SingleLinkNode *next = list->head;
+    SingleLinkNode *cur = list->head;
     SingleLinkNode *tmp = NULL;
 
-    while (next != NULL) {
-        tmp = next->_next;
-        new_head = _prepend(new_head, next);
-        next = tmp;
+    while (cur != NULL) {
+        tmp = cur->_next;
+        new_head = _prepend(new_head, cur);
+        cur = tmp;
     }
 
     list->head = new_head;
